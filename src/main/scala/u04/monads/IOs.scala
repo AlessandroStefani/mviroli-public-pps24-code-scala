@@ -22,8 +22,8 @@ object IOs:
     // flatMap: opens the box, executes, and creates a new box with result
     extension [A](m: IO[A])
       def flatMap[B](f: A => IO[B]): IO[B] =
-        m match
-          case IO(e) => f(e())
+        IO(() => f(m.exec()).exec())
+        //f(m.exec())
 
 @main def tryMonadIO =
 
